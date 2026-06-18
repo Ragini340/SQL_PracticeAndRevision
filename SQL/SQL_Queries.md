@@ -279,3 +279,246 @@ WHERE job IN ('CLERK','MANAGER')
 ORDER BY sal DESC;
 
  ===============================================================
+ ===============================================================
+42. Display distinct department numbers
+
+SELECT DISTINCT deptno
+FROM emp;
+
+===============================================================
+43. Display distinct job titles
+
+SELECT DISTINCT job
+FROM emp;
+
+===============================================================
+44. Display first 5 rows from EMP table
+
+SELECT TOP 5 *
+FROM emp;
+
+===============================================================
+45. Display top 5 highest paid employees
+
+SELECT TOP 5 *
+FROM emp
+ORDER BY sal DESC;
+
+===============================================================
+46. Display top 5 employees based on experience
+
+SELECT TOP 5 *
+FROM emp
+ORDER BY hiredate ASC;
+
+===============================================================
+47. Display top 5 maximum salaries
+
+SELECT DISTINCT TOP 5 sal
+FROM emp
+ORDER BY sal DESC;
+
+===============================================================
+48. Update commission of all employees to 500
+
+UPDATE emp
+SET comm = 500;
+
+===============================================================
+49. Update commission to 500 for employees whose commission is NULL
+
+UPDATE emp
+SET comm = 500
+WHERE comm IS NULL;
+
+===============================================================
+50. Update commission to NULL where commission is not NULL
+
+UPDATE emp
+SET comm = NULL
+WHERE comm IS NOT NULL;
+
+===============================================================
+51. Update salary to 2000 and commission to 500 for employee 7369
+
+UPDATE emp
+SET sal = 2000,
+    comm = 500
+WHERE empno = 7369;
+
+===============================================================
+52. Increase salary by 20% and commission by 10% for Salesmen joined in 1981
+
+UPDATE emp
+SET sal = sal + (sal * 0.2),
+    comm = comm + (comm * 0.1)
+WHERE job = 'SALESMAN'
+AND hiredate LIKE '1981%';
+
+===============================================================
+53. Increase price of Samsung, Redmi and Realme mobiles by 10%
+
+UPDATE products
+SET price = price + (price * 0.1)
+WHERE brand IN ('samsung','redmi','realme')
+AND category = 'mobiles';
+
+===============================================================
+54. Delete all rows from EMP table
+
+DELETE FROM emp;
+
+===============================================================
+55. Delete employees whose employee numbers are 7844 and 7566
+
+DELETE FROM emp
+WHERE empno IN (7844,7566);
+
+===============================================================
+56. Delete employees who joined in December 1981
+
+DELETE FROM emp
+WHERE hiredate LIKE '1981-12-%';
+
+-- OR
+
+DELETE FROM emp
+WHERE hiredate BETWEEN '1981-12-01'
+AND '1981-12-31';
+
+===============================================================
+57. Add Gender column to EMP table
+
+ALTER TABLE emp
+ADD gender CHAR(1);
+
+===============================================================
+58. Update gender of employee 7369 as M
+
+UPDATE emp
+SET gender = 'M'
+WHERE empno = 7369;
+
+===============================================================
+59. Drop Gender column from EMP table
+
+ALTER TABLE emp
+DROP COLUMN gender;
+
+===============================================================
+60. Change EMPNO datatype to INT
+
+ALTER TABLE emp
+ALTER COLUMN empno INT;
+
+===============================================================
+61. Change HIREDATE datatype to DATETIME
+
+ALTER TABLE emp
+ALTER COLUMN hiredate DATETIME;
+
+===============================================================
+62. Increase ENAME column size to 20
+
+ALTER TABLE emp
+ALTER COLUMN ename VARCHAR(20);
+
+===============================================================
+63. Drop EMP table
+
+DROP TABLE emp;
+
+===============================================================
+64. Remove all rows from STUDENT table but keep structure
+
+TRUNCATE TABLE student;
+
+===============================================================
+65. Rename STUDENT table to STUD
+
+SP_RENAME 'student','stud';
+
+===============================================================
+66. Rename column M to MATHS in STUD table
+
+SP_RENAME 'STUD.M','MATHS';
+
+===============================================================
+67. Create CUSTOMER table with Identity column
+
+CREATE TABLE cust
+(
+    cid INT IDENTITY(100,1),
+    cname VARCHAR(20)
+);
+
+===============================================================
+68. Insert customer A
+
+INSERT INTO cust(cname)
+VALUES('A');
+
+===============================================================
+69. Insert customer B
+
+INSERT INTO cust(cname)
+VALUES('B');
+
+===============================================================
+70. Insert customer C
+
+INSERT INTO cust(cname)
+VALUES('C');
+
+===============================================================
+71. Display all customer records
+
+SELECT *
+FROM cust;
+
+===============================================================
+72. Extract current year using DATEPART()
+
+SELECT DATEPART(YY,GETDATE());
+
+===============================================================
+73. Extract current month using DATEPART()
+
+SELECT DATEPART(MM,GETDATE());
+
+===============================================================
+74. Extract current day using DATEPART()
+
+SELECT DATEPART(DD,GETDATE());
+
+===============================================================
+75. Extract current weekday using DATEPART()
+
+SELECT DATEPART(DW,GETDATE());
+
+===============================================================
+76. Extract current day of year using DATEPART()
+
+SELECT DATEPART(DY,GETDATE());
+
+===============================================================
+77. Extract current hour using DATEPART()
+
+SELECT DATEPART(HH,GETDATE());
+
+===============================================================
+78. Extract current minute using DATEPART()
+
+SELECT DATEPART(MI,GETDATE());
+
+===============================================================
+79. Extract current second using DATEPART()
+
+SELECT DATEPART(SS,GETDATE());
+
+===============================================================
+80. Extract current quarter using DATEPART()
+
+SELECT DATEPART(QQ,GETDATE());
+
+===============================================================
