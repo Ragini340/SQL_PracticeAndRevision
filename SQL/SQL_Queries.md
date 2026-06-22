@@ -522,3 +522,244 @@ SELECT DATEPART(SS,GETDATE());
 SELECT DATEPART(QQ,GETDATE());
 
 ===============================================================
+===============================================================
+81. Display employees joined in years 1980, 1983 and 1985
+
+SELECT *
+FROM emp
+WHERE DATEPART(YY,hiredate) IN (1980,1983,1985);
+
+===============================================================
+82. Display employees who joined in a leap year
+
+SELECT *
+FROM emp
+WHERE DATEPART(YY,hiredate) % 4 = 0;
+
+===============================================================
+83. Display employees who joined in January, April and December
+
+SELECT *
+FROM emp
+WHERE DATEPART(MM,hiredate) IN (1,4,12);
+
+===============================================================
+84. Display employees who joined in 2nd quarter of 1981
+
+SELECT *
+FROM emp
+WHERE DATEPART(QQ,hiredate) = 2
+AND DATEPART(YY,hiredate) = 1981;
+
+===============================================================
+85. Display employee name and year of joining
+
+SELECT ename,
+       DATEPART(YY,hiredate) AS year_of_join
+FROM emp;
+
+===============================================================
+86. Display employee name and joining day
+
+SELECT ename,
+       DATENAME(DW,hiredate) AS day
+FROM emp;
+
+===============================================================
+87. Display employees who joined on Sunday
+
+SELECT *
+FROM emp
+WHERE DATENAME(DW,hiredate) = 'Sunday';
+
+===============================================================
+88. Display employees who joined on Sunday using DATEPART
+
+SELECT *
+FROM emp
+WHERE DATEPART(DW,hiredate) = 1;
+
+===============================================================
+89. Display on which day India got Independence
+
+SELECT DATENAME(DW,'1947-08-15');
+
+===============================================================
+90. Display current date in DD-MM-YYYY format
+
+SELECT FORMAT(GETDATE(),'dd-MM-yyyy');
+
+===============================================================
+91. Display current time
+
+SELECT FORMAT(GETDATE(),'hh:mm:ss');
+
+===============================================================
+92. Display current date with short day name
+
+SELECT FORMAT(GETDATE(),'dd-MM-yyyy ddd');
+
+===============================================================
+93. Display current date with full day name
+
+SELECT FORMAT(GETDATE(),'dd-MM-yyyy dddd');
+
+===============================================================
+94. Display current date in DD-MMM-YYYY format
+
+SELECT FORMAT(GETDATE(),'dd-MMM-yyyy');
+
+===============================================================
+95. Display current date in DD-MMMM-YYYY format
+
+SELECT FORMAT(GETDATE(),'dd-MMMM-yyyy');
+
+===============================================================
+96. Display employee name and hire date in MM/DD/YYYY format
+
+SELECT ename,
+       FORMAT(hiredate,'MM/dd/yyyy') AS hiredate
+FROM emp;
+
+===============================================================
+97. Display employees who joined today
+
+SELECT *
+FROM emp
+WHERE hiredate = FORMAT(GETDATE(),'yyyy-MM-dd');
+
+===============================================================
+98. Display date after 10 days from today
+
+SELECT DATEADD(DD,10,GETDATE());
+
+===============================================================
+99. Display date before 10 days from today
+
+SELECT DATEADD(DD,-10,GETDATE());
+
+===============================================================
+100. Display date after 2 months from today
+
+SELECT DATEADD(MM,2,GETDATE());
+
+===============================================================
+101. Display employees who joined in last 6 months
+
+SELECT *
+FROM emp
+WHERE hiredate BETWEEN DATEADD(MM,-6,GETDATE())
+AND GETDATE();
+
+===============================================================
+102. Display employees who joined in last 5 years
+
+SELECT *
+FROM emp
+WHERE hiredate >= DATEADD(YY,-5,GETDATE());
+
+===============================================================
+103. Display difference in years between 18-Jun-2025 and today
+
+SELECT DATEDIFF(YY,'2025-06-18',GETDATE());
+
+===============================================================
+104. Display difference in months between 18-Jun-2025 and today
+
+SELECT DATEDIFF(MM,'2025-06-18',GETDATE());
+
+===============================================================
+105. Display difference in days between 18-Jun-2025 and today
+
+SELECT DATEDIFF(DD,'2025-06-18',GETDATE());
+
+===============================================================
+106. Display employee name and experience in years
+
+SELECT ename,
+       DATEDIFF(YY,hiredate,GETDATE()) AS experience
+FROM emp;
+
+===============================================================
+107. Display employees having experience greater than 45 years
+
+SELECT *
+FROM emp
+WHERE DATEDIFF(YY,hiredate,GETDATE()) > 45;
+
+===============================================================
+108. Display employee experience in years and months
+
+SELECT ename,
+       DATEDIFF(MM,hiredate,GETDATE())/12 AS years,
+       DATEDIFF(MM,hiredate,GETDATE())%12 AS months
+FROM emp;
+
+===============================================================
+109. Display last day of current month
+
+SELECT EOMONTH(GETDATE());
+
+===============================================================
+110. Display last day of next month
+
+SELECT EOMONTH(GETDATE(),1);
+
+===============================================================
+111. Display last day of previous month
+
+SELECT EOMONTH(GETDATE(),-1);
+
+===============================================================
+112. Display first day of next month
+
+SELECT DATEADD(DD,1,EOMONTH(GETDATE()));
+
+===============================================================
+113. Display first day of current month
+
+SELECT DATEADD(DD,1,EOMONTH(GETDATE(),-1));
+
+===============================================================
+114. Convert string to uppercase
+
+SELECT UPPER('hello');
+
+===============================================================
+115. Convert string to lowercase
+
+SELECT LOWER('HELLO');
+
+===============================================================
+116. Display employee names in lowercase with salary
+
+SELECT LOWER(ename) AS ename,
+       sal
+FROM emp;
+
+===============================================================
+117. Convert all employee names to lowercase in table
+
+UPDATE emp
+SET ename = LOWER(ename);
+
+===============================================================
+118. Display length of string 'hello welcome'
+
+SELECT LEN('hello welcome');
+
+===============================================================
+119. Display employees whose names contain exactly 4 characters
+
+SELECT *
+FROM emp
+WHERE LEN(ename) = 4;
+
+===============================================================
+120. Display employee name and length where name length is greater than 4
+
+SELECT ename,
+       LEN(ename) AS length
+FROM emp
+WHERE LEN(ename) > 4
+ORDER BY LEN(ename) ASC;
