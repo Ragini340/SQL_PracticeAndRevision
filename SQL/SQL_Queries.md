@@ -995,3 +995,288 @@ SELECT CEILING(3.1);
 160. Display floor value of 3.9
 
 SELECT FLOOR(3.9);
+
+===============================================================
+161. Convert decimal value 10.5 to Integer
+
+SELECT CAST(10.5 AS INT);
+
+===============================================================
+162. Convert current DateTime to Date
+
+SELECT CAST(GETDATE() AS DATE);
+
+===============================================================
+163. Display employee name and salary as a sentence
+
+SELECT ename + ' earns ' + CAST(sal AS VARCHAR) AS details
+FROM emp;
+
+===============================================================
+164. Display employee name, hire date and job as a sentence
+
+SELECT ename + ' joined on ' +
+       CAST(hiredate AS VARCHAR) +
+       ' as ' + job AS details
+FROM emp;
+
+===============================================================
+165. Convert decimal value 10.5 to Integer using CONVERT
+
+SELECT CONVERT(INT,10.5);
+
+===============================================================
+166. Convert current DateTime to Date using CONVERT
+
+SELECT CONVERT(DATE,GETDATE());
+
+===============================================================
+167. Display current date in MM/DD/YYYY format
+
+SELECT CONVERT(VARCHAR,GETDATE(),101);
+
+===============================================================
+168. Display current date in DD-MM-YYYY format
+
+SELECT CONVERT(VARCHAR,GETDATE(),105);
+
+===============================================================
+169. Display current date in MM-DD-YYYY format
+
+SELECT CONVERT(VARCHAR,GETDATE(),110);
+
+===============================================================
+170. Display current time in HH:MI:SS format
+
+SELECT CONVERT(VARCHAR,GETDATE(),114);
+
+===============================================================
+171. Display employee names with hire date in DD-MM-YYYY format
+
+SELECT ename,
+       CONVERT(VARCHAR,hiredate,105) AS hiredate
+FROM emp;
+
+===============================================================
+172. Display salaries with thousand separator
+
+SELECT ename,
+       CONVERT(VARCHAR,sal,1) AS salary
+FROM emp;
+
+===============================================================
+173. Display salaries in Indian currency format
+
+SELECT ename,
+       FORMAT(sal,'C','en-IN') AS salary
+FROM emp;
+
+===============================================================
+174. Display salaries in US currency format
+
+SELECT ename,
+       FORMAT(sal,'C','en-US') AS salary
+FROM emp;
+
+===============================================================
+175. Display ISNULL() example with non-null value
+
+SELECT ISNULL(100,200);
+
+===============================================================
+176. Display ISNULL() example with NULL value
+
+SELECT ISNULL(NULL,200);
+
+===============================================================
+177. Display employee total salary including commission
+
+SELECT ename,
+       sal,
+       comm,
+       sal + ISNULL(comm,0) AS totalsal
+FROM emp;
+
+===============================================================
+178. Display commission as 'N/A' when commission is NULL
+
+SELECT ename,
+       sal,
+       ISNULL(CAST(comm AS VARCHAR),'N/A') AS comm
+FROM emp;
+
+===============================================================
+179. Display first non-null value using COALESCE
+
+SELECT COALESCE(NULL,100,NULL,200);
+
+===============================================================
+180. Display first non-null value using COALESCE
+
+SELECT COALESCE(100,NULL,200,NULL);
+
+===============================================================
+181. Display Customer ID, Customer Name and Contact
+
+SELECT cid,
+       cname,
+       COALESCE(phone,emailid,addr) AS contact
+FROM cust;
+
+===============================================================
+182. Display employee ranks based on salary using RANK()
+
+SELECT empno,
+       ename,
+       sal,
+       RANK() OVER(ORDER BY sal DESC) AS rnk
+FROM emp;
+
+===============================================================
+183. Display employee ranks based on salary using DENSE_RANK()
+
+SELECT empno,
+       ename,
+       sal,
+       DENSE_RANK() OVER(ORDER BY sal DESC) AS rnk
+FROM emp;
+
+===============================================================
+184. Display employee ranks based on salary and hire date
+
+SELECT empno,
+       ename,
+       hiredate,
+       sal,
+       DENSE_RANK() OVER(ORDER BY sal DESC,hiredate ASC) AS rnk
+FROM emp;
+
+===============================================================
+185. Display department-wise employee ranks
+
+SELECT empno,
+       ename,
+       sal,
+       deptno,
+       DENSE_RANK() OVER(PARTITION BY deptno ORDER BY sal DESC) AS rnk
+FROM emp;
+
+===============================================================
+186. Display row numbers based on salary
+
+SELECT empno,
+       ename,
+       sal,
+       ROW_NUMBER() OVER(ORDER BY sal DESC) AS rno
+FROM emp;
+
+===============================================================
+187. Display row numbers based on employee number
+
+SELECT empno,
+       ename,
+       sal,
+       ROW_NUMBER() OVER(ORDER BY empno) AS rno
+FROM emp;
+
+===============================================================
+188. Display the 5th row from EMP table
+
+WITH E AS
+(
+    SELECT empno,
+           ename,
+           sal,
+           ROW_NUMBER() OVER(ORDER BY empno) AS rno
+    FROM emp
+)
+SELECT *
+FROM E
+WHERE rno = 5;
+
+===============================================================
+189. Display 5th, 10th and 15th rows
+
+WITH E AS
+(
+    SELECT empno,
+           ename,
+           sal,
+           ROW_NUMBER() OVER(ORDER BY empno) AS rno
+    FROM emp
+)
+SELECT *
+FROM E
+WHERE rno IN (5,10,15);
+
+===============================================================
+190. Display rows from 5th to 10th
+
+WITH E AS
+(
+    SELECT empno,
+           ename,
+           sal,
+           ROW_NUMBER() OVER(ORDER BY empno) AS rno
+    FROM emp
+)
+SELECT *
+FROM E
+WHERE rno BETWEEN 5 AND 10;
+
+===============================================================
+191. Display even row numbers
+
+WITH E AS
+(
+    SELECT empno,
+           ename,
+           sal,
+           ROW_NUMBER() OVER(ORDER BY empno) AS rno
+    FROM emp
+)
+SELECT *
+FROM E
+WHERE rno % 2 = 0;
+
+===============================================================
+192. Display odd row numbers
+
+WITH E AS
+(
+    SELECT empno,
+           ename,
+           sal,
+           ROW_NUMBER() OVER(ORDER BY empno) AS rno
+    FROM emp
+)
+SELECT *
+FROM E
+WHERE rno % 2 = 1;
+
+===============================================================
+193. Display previous employee salary using LAG()
+
+SELECT empno,
+       ename,
+       sal,
+       LAG(sal,1) OVER(ORDER BY empno) AS previous_salary
+FROM emp;
+
+===============================================================
+194. Display next employee salary using LEAD()
+
+SELECT empno,
+       ename,
+       sal,
+       LEAD(sal,1) OVER(ORDER BY empno) AS next_salary
+FROM emp;
+
+===============================================================
+195. Display year, population and growth
+
+SELECT year,
+       population,
+       population - LAG(population,1)
+       OVER(ORDER BY year) AS growth
+FROM population;
