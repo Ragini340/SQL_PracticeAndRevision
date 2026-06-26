@@ -763,3 +763,235 @@ SELECT ename,
 FROM emp
 WHERE LEN(ename) > 4
 ORDER BY LEN(ename) ASC;
+
+===============================================================
+121. Display first 5 characters of the string 'hello welcome'
+
+SELECT LEFT('hello welcome',5);
+
+===============================================================
+122. Display last 7 characters of the string 'hello welcome'
+
+SELECT RIGHT('hello welcome',7);
+
+===============================================================
+123. Display employees whose names start with 'S'
+
+SELECT *
+FROM emp
+WHERE LEFT(ename,1) = 's';
+
+===============================================================
+124. Display employees whose names end with 'S'
+
+SELECT *
+FROM emp
+WHERE RIGHT(ename,1) = 's';
+
+===============================================================
+125. Display employees whose names start and end with the same character
+
+SELECT *
+FROM emp
+WHERE LEFT(ename,1) = RIGHT(ename,1);
+
+===============================================================
+126. Generate employee email IDs
+
+SELECT empno,
+       ename,
+       LEFT(ename,3) + LEFT(CAST(empno AS VARCHAR),3) + '@tcs.com' AS emailid
+FROM emp;
+
+===============================================================
+127. Add EmailID column to EMP table
+
+ALTER TABLE emp
+ADD emailid VARCHAR(20);
+
+===============================================================
+128. Update EmailID column for all employees
+
+UPDATE emp
+SET emailid = LEFT(ename,3) + LEFT(CAST(empno AS VARCHAR),3) + '@tcs.com';
+
+===============================================================
+129. Display 5 characters starting from 7th position
+
+SELECT SUBSTRING('hello welcome',7,5);
+
+===============================================================
+130. Display string from 7th position till end
+
+SELECT SUBSTRING('hello welcome',7,LEN('hello welcome'));
+
+===============================================================
+131. Display 3 characters from 10th position
+
+SELECT SUBSTRING('hello welcome',10,3);
+
+===============================================================
+132. Find position of character 'O'
+
+SELECT CHARINDEX('O','HELLO WELCOME');
+
+===============================================================
+133. Find position of character 'K'
+
+SELECT CHARINDEX('K','HELLO WELCOME');
+
+===============================================================
+134. Find position of second occurrence of 'O'
+
+SELECT CHARINDEX('O','HELLO WELCOME',6);
+
+===============================================================
+135. Find position of first space
+
+SELECT CHARINDEX(' ','HELLO WELCOME');
+
+===============================================================
+136. Display Customer ID, First Name and Last Name
+
+SELECT cid,
+       SUBSTRING(cname,1,CHARINDEX(' ',cname)-1) AS fname,
+       SUBSTRING(cname,CHARINDEX(' ',cname)+1,LEN(cname)) AS lname
+FROM cust;
+
+===============================================================
+137. Reverse the string 'HELLO'
+
+SELECT REVERSE('HELLO');
+
+===============================================================
+138. Display employees whose names are palindrome
+
+SELECT *
+FROM emp
+WHERE ename = REVERSE(ename);
+
+===============================================================
+139. Repeat '*' 10 times
+
+SELECT REPLICATE('*',10);
+
+===============================================================
+140. Mask employee salary using '*'
+
+SELECT ename,
+       REPLICATE('*',LEN(CAST(sal AS VARCHAR))) AS sal
+FROM emp;
+
+===============================================================
+141. Mask account number except last 4 digits
+
+SELECT REPLICATE('X',LEN(accno)-4) + RIGHT(accno,4)
+FROM accounts;
+
+===============================================================
+142. Replace 'ELL' with 'ABC'
+
+SELECT REPLACE('HELLO','ELL','ABC');
+
+===============================================================
+143. Replace all 'L' with 'ABC'
+
+SELECT REPLACE('HELLO','L','ABC');
+
+===============================================================
+144. Remove '@' symbols from string
+
+SELECT REPLACE('@@HE@@LL@O@@','@','');
+
+===============================================================
+145. Replace year 1980 with 2020 in HireDate
+
+UPDATE emp
+SET hiredate = REPLACE(hiredate,'1980','2020');
+
+===============================================================
+146. Replace month 02 with 03 in HireDate
+
+UPDATE emp
+SET hiredate = REPLACE(hiredate,'-02-','-03-');
+
+===============================================================
+147. Translate E->A, L->B and O->C
+
+SELECT TRANSLATE('HELLO','ELO','ABC');
+
+===============================================================
+148. Encrypt employee salary
+
+SELECT ename,
+       TRANSLATE(CAST(sal AS VARCHAR),
+                 '0123456789.',
+                 '$bT*!&#@^%+') AS sal
+FROM emp;
+
+===============================================================
+149. Remove all special characters
+
+SELECT REPLACE(
+       TRANSLATE('!@HE#$LL%^O&*',
+                 '!@#$%^&*',
+                 '********'),
+       '*','');
+
+===============================================================
+150. Display employees whose names start with vowels
+
+SELECT *
+FROM emp
+WHERE LEFT(ename,1) IN ('a','e','i','o','u');
+
+===============================================================
+151. Display absolute value of -10
+
+SELECT ABS(-10);
+
+===============================================================
+152. Find 3 raised to the power 2
+
+SELECT POWER(3,2);
+
+===============================================================
+153. Find square root of 25
+
+SELECT SQRT(25);
+
+===============================================================
+154. Find square of 5
+
+SELECT SQUARE(5);
+
+===============================================================
+155. Round 38.5678 to nearest integer
+
+SELECT ROUND(38.5678,0);
+
+===============================================================
+156. Round 38.4678 to 2 decimal places
+
+SELECT ROUND(38.4678,2);
+
+===============================================================
+157. Round 386 to nearest tens
+
+SELECT ROUND(386,-1);
+
+===============================================================
+158. Round employee salaries to nearest hundred
+
+UPDATE emp
+SET sal = ROUND(sal,-2);
+
+===============================================================
+159. Display ceiling value of 3.1
+
+SELECT CEILING(3.1);
+
+===============================================================
+160. Display floor value of 3.9
+
+SELECT FLOOR(3.9);
