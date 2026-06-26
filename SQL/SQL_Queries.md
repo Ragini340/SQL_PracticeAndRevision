@@ -1280,3 +1280,126 @@ SELECT year,
        population - LAG(population,1)
        OVER(ORDER BY year) AS growth
 FROM population;
+
+===============================================================
+196. Display year, population, previous year population, growth and growth percentage
+
+WITH T AS
+(
+    SELECT year,
+           population,
+           LAG(population,1) OVER(ORDER BY year) AS prev_year_pop
+    FROM population
+)
+SELECT year,
+       population,
+       prev_year_pop,
+       population - prev_year_pop AS growth,
+       ((population - prev_year_pop) * 100.0 / prev_year_pop) AS pct
+FROM T;
+
+===============================================================
+197. Display first salary using FIRST_VALUE()
+
+SELECT empno,
+       ename,
+       sal,
+       FIRST_VALUE(sal) OVER(ORDER BY empno) AS first_salary
+FROM emp;
+
+===============================================================
+198. Display first day's sales amount
+
+SELECT dateid,
+       amount,
+       FIRST_VALUE(amount) OVER(ORDER BY dateid) AS first_day_amount
+FROM sales;
+
+===============================================================
+199. Display difference between today's sales and first day's sales
+
+SELECT dateid,
+       amount,
+       FIRST_VALUE(amount) OVER(ORDER BY dateid) AS first_day_amount,
+       amount - FIRST_VALUE(amount) OVER(ORDER BY dateid) AS difference
+FROM sales;
+
+===============================================================
+200. Divide employees into 4 salary groups using NTILE()
+
+SELECT ename,
+       sal,
+       NTILE(4) OVER(ORDER BY sal DESC) AS groups
+FROM emp;
+
+===============================================================
+201. Display maximum salary
+
+SELECT MAX(sal)
+FROM emp;
+
+===============================================================
+202. Display latest hire date
+
+SELECT MAX(hiredate)
+FROM emp;
+
+===============================================================
+203. Display employee whose name is last alphabetically
+
+SELECT MAX(ename)
+FROM emp;
+
+===============================================================
+204. Display minimum salary
+
+SELECT MIN(sal)
+FROM emp;
+
+===============================================================
+205. Display earliest hire date
+
+SELECT MIN(hiredate)
+FROM emp;
+
+===============================================================
+206. Display employee whose name is first alphabetically
+
+SELECT MIN(ename)
+FROM emp;
+
+===============================================================
+207. Display total salary of all employees
+
+SELECT SUM(sal)
+FROM emp;
+
+===============================================================
+208. Display total salary rounded to nearest thousand
+
+SELECT ROUND(SUM(sal),-3)
+FROM emp;
+
+===============================================================
+209. Display total salary with Indian currency format
+
+SELECT FORMAT(ROUND(SUM(sal),-3),'C','en-IN') AS totalsal
+FROM emp;
+
+===============================================================
+210. Display total salary including commission
+
+SELECT SUM(sal + ISNULL(comm,0)) AS totalsal
+FROM emp;
+
+===============================================================
+211. Display average salary
+
+SELECT AVG(sal)
+FROM emp;
+
+===============================================================
+212. Display average salary rounded down
+
+SELECT FLOOR(AVG(sal))
+FROM emp;
