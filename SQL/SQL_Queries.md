@@ -1403,3 +1403,72 @@ FROM emp;
 
 SELECT FLOOR(AVG(sal))
 FROM emp;
+
+===============================================================
+213. Display number of employees joined in the year 1981
+
+SELECT COUNT(*)
+FROM emp
+WHERE DATEPART(YY,hiredate) = 1981;
+
+===============================================================
+214. Display number of employees who joined on Sunday
+
+SELECT COUNT(*)
+FROM emp
+WHERE DATEPART(DW,hiredate) = 1;
+
+===============================================================
+215. Display number of employees joined in 2nd quarter of 1981
+
+SELECT COUNT(*)
+FROM emp
+WHERE DATEPART(QQ,hiredate) = 2
+AND DATEPART(YY,hiredate) = 1981;
+
+===============================================================
+216. Display cumulative (running) total salary
+
+SELECT empno,
+       ename,
+       sal,
+       SUM(sal) OVER (ORDER BY empno ASC) AS running_total
+FROM emp;
+
+===============================================================
+217. Display moving average salary
+
+SELECT empno,
+       ename,
+       sal,
+       AVG(sal) OVER (ORDER BY empno ASC) AS moving_avg
+FROM emp;
+
+===============================================================
+218. Find dates where there were no sales for 3 or more consecutive days
+
+WITH T AS
+(
+    SELECT id,
+           sdate,
+           LAG(sdate,1) OVER(ORDER BY sdate ASC) AS prev_sdate,
+           DATEDIFF(DD,
+                    LAG(sdate,1) OVER(ORDER BY sdate ASC),
+                    sdate) AS days
+    FROM sales
+)
+SELECT *
+FROM T
+WHERE days >= 3;
+
+===============================================================
+219. Display employee name and job description using CASE statement
+
+SELECT ename,
+       CASE job
+            WHEN 'CLERK' THEN 'WORKER'
+            WHEN 'MANAGER' THEN 'BOSS'
+            WHEN 'PRESIDENT' THEN 'BIG BOSS'
+            ELSE 'EMPLOYEE'
+       END AS job
+FROM emp;
