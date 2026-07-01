@@ -1472,3 +1472,72 @@ SELECT ename,
             ELSE 'EMPLOYEE'
        END AS job
 FROM emp;
+
+===============================================================
+220. Display employee name, salary and salary range using searched CASE statement
+
+SELECT ename,
+       sal,
+       CASE
+            WHEN sal > 3000 THEN 'HISAL'
+            WHEN sal < 3000 THEN 'LOSAL'
+            ELSE 'AVGSAL'
+       END AS salrange
+FROM emp;
+
+===============================================================
+221. Display Student Number, Total, Average and Result
+
+SELECT sno,
+       s1 + s2 + s3 AS total,
+       (s1 + s2 + s3) / 3 AS avg,
+       CASE
+            WHEN s1 >= 35
+             AND s2 >= 35
+             AND s3 >= 35
+            THEN 'PASS'
+            ELSE 'FAIL'
+       END AS result
+FROM student;
+
+===============================================================
+222. Display Student Number, Total, Average, Result and Grade
+
+SELECT sno,
+       s1 + s2 + s3 AS total,
+       (s1 + s2 + s3) / 3 AS avg,
+       CASE
+            WHEN s1 >= 35
+             AND s2 >= 35
+             AND s3 >= 35
+            THEN 'PASS'
+            ELSE 'FAIL'
+       END AS result,
+       CASE
+            WHEN (s1 + s2 + s3) / 3 >= 70 THEN 'DISTINCTION'
+            WHEN (s1 + s2 + s3) / 3 >= 60 THEN 'FIRST CLASS'
+            WHEN (s1 + s2 + s3) / 3 >= 50 THEN 'SECOND CLASS'
+            WHEN (s1 + s2 + s3) / 3 >= 35 THEN 'THIRD CLASS'
+            ELSE 'FAIL'
+       END AS grade
+FROM student;
+
+===============================================================
+223. Display department-wise total salary
+
+SELECT deptno,
+       SUM(sal) AS totsal
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+224. Display job-wise summary (Minimum Salary, Maximum Salary, Total Salary, Average Salary and Number of Employees)
+
+SELECT job,
+       MIN(sal) AS minsal,
+       MAX(sal) AS maxsal,
+       SUM(sal) AS totsal,
+       AVG(sal) AS avgsal,
+       COUNT(*) AS noofemps
+FROM emp
+GROUP BY job;
