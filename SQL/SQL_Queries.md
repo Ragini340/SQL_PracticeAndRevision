@@ -1541,3 +1541,32 @@ SELECT job,
        COUNT(*) AS noofemps
 FROM emp
 GROUP BY job;
+
+===============================================================
+225. Display department-wise total salary only for departments 10 and 20
+
+SELECT deptno,
+       SUM(sal) AS totsal
+FROM emp
+WHERE deptno IN (10,20)
+GROUP BY deptno;
+
+===============================================================
+226. Find departments having more than 3 employees
+
+SELECT deptno,
+       COUNT(*) AS cnt
+FROM emp
+GROUP BY deptno
+HAVING COUNT(*) > 3;
+
+===============================================================
+227. Display department-wise number of employees where department is 10 or 20
+and number of employees is greater than 3
+
+SELECT deptno,
+       COUNT(*) AS cnt
+FROM emp
+WHERE deptno IN (10,20)
+GROUP BY deptno
+HAVING COUNT(*) > 3;
