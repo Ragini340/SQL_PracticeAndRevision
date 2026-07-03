@@ -1570,3 +1570,71 @@ FROM emp
 WHERE deptno IN (10,20)
 GROUP BY deptno
 HAVING COUNT(*) > 3;
+
+===============================================================
+228. Display department-wise minimum salary
+
+SELECT deptno,
+       MIN(sal) AS minsal
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+229. Display department-wise maximum salary
+
+SELECT deptno,
+       MAX(sal) AS maxsal
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+230. Display department-wise average salary
+
+SELECT deptno,
+       AVG(sal) AS avgsal
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+231. Display department-wise employee count
+
+SELECT deptno,
+       COUNT(*) AS empcount
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+232. Display job-wise total salary arranged in descending order
+
+SELECT job,
+       SUM(sal) AS totsal
+FROM emp
+GROUP BY job
+ORDER BY totsal DESC;
+
+===============================================================
+233. Display departments having total salary greater than 10000
+
+SELECT deptno,
+       SUM(sal) AS totsal
+FROM emp
+GROUP BY deptno
+HAVING SUM(sal) > 10000;
+
+===============================================================
+234. Display jobs having average salary greater than 2000
+
+SELECT job,
+       AVG(sal) AS avgsal
+FROM emp
+GROUP BY job
+HAVING AVG(sal) > 2000;
+
+===============================================================
+235. Display departments having more than 2 employees
+
+SELECT deptno,
+       COUNT(*) AS empcount
+FROM emp
+GROUP BY deptno
+HAVING COUNT(*) > 2;
