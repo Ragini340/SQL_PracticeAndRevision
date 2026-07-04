@@ -1638,3 +1638,78 @@ SELECT deptno,
 FROM emp
 GROUP BY deptno
 HAVING COUNT(*) > 2;
+
+===============================================================
+236. Display department-wise total salary in descending order
+
+SELECT deptno,
+       SUM(sal) AS totsal
+FROM emp
+GROUP BY deptno
+ORDER BY totsal DESC;
+
+===============================================================
+237. Display job-wise employee count in ascending order
+
+SELECT job,
+       COUNT(*) AS cnt
+FROM emp
+GROUP BY job
+ORDER BY cnt ASC;
+
+===============================================================
+238. Display department-wise minimum, maximum and average salary
+
+SELECT deptno,
+       MIN(sal) AS minsal,
+       MAX(sal) AS maxsal,
+       AVG(sal) AS avgsal
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+239. Display department-wise total salary and employee count
+
+SELECT deptno,
+       SUM(sal) AS totsal,
+       COUNT(*) AS cnt
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+240. Display departments having average salary greater than 2500
+
+SELECT deptno,
+       AVG(sal) AS avgsal
+FROM emp
+GROUP BY deptno
+HAVING AVG(sal) > 2500;
+
+===============================================================
+241. Display jobs having total salary greater than 5000
+
+SELECT job,
+       SUM(sal) AS totsal
+FROM emp
+GROUP BY job
+HAVING SUM(sal) > 5000;
+
+===============================================================
+242. Display department-wise total salary for departments 10 and 20 in descending order
+
+SELECT deptno,
+       SUM(sal) AS totsal
+FROM emp
+WHERE deptno IN (10,20)
+GROUP BY deptno
+ORDER BY totsal DESC;
+
+===============================================================
+243. Display department-wise employee count for departments having more than 2 employees
+
+SELECT deptno,
+       COUNT(*) AS cnt
+FROM emp
+GROUP BY deptno
+HAVING COUNT(*) > 2
+ORDER BY cnt DESC;
