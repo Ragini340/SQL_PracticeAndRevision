@@ -1713,3 +1713,74 @@ FROM emp
 GROUP BY deptno
 HAVING COUNT(*) > 2
 ORDER BY cnt DESC;
+
+===============================================================
+244. Create DEPT table
+
+CREATE TABLE dept
+(
+    deptno INT PRIMARY KEY,
+    dname VARCHAR(20),
+    loc VARCHAR(20)
+);
+
+===============================================================
+245. Insert sample data into DEPT table
+
+INSERT INTO dept
+VALUES
+(10,'ACCOUNTING','NEW YORK'),
+(20,'RESEARCH','DALLAS'),
+(30,'SALES','CHICAGO'),
+(40,'OPERATIONS','BOSTON');
+
+===============================================================
+246. Display employee names with department names (INNER JOIN)
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+INNER JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+247. Display employee name, department name and location
+
+SELECT e.ename,
+       d.dname,
+       d.loc
+FROM emp e
+INNER JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+248. Display all employees and their departments (LEFT JOIN)
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+LEFT JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+249. Display all departments and employees (RIGHT JOIN)
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+RIGHT JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+250. Display employees working in SALES department
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+INNER JOIN dept d
+ON e.deptno = d.deptno
+WHERE d.dname = 'SALES';
