@@ -1784,3 +1784,85 @@ FROM emp e
 INNER JOIN dept d
 ON e.deptno = d.deptno
 WHERE d.dname = 'SALES';
+
+===============================================================
+251. Display employee name and department name using INNER JOIN
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+INNER JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+252. Display employee name, department name and location
+
+SELECT e.ename,
+       d.dname,
+       d.loc
+FROM emp e
+INNER JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+253. Display all employees whether department exists or not
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+LEFT JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+254. Display all departments whether employees exist or not
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+RIGHT JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+255. Display all employees and all departments
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+FULL OUTER JOIN dept d
+ON e.deptno = d.deptno;
+
+===============================================================
+256. Display employees working in ACCOUNTING department
+
+SELECT e.empid,
+       e.ename,
+       d.dname
+FROM emp e
+INNER JOIN dept d
+ON e.deptno = d.deptno
+WHERE d.dname = 'ACCOUNTING';
+
+===============================================================
+257. Display employee names working in NEW YORK location
+
+SELECT e.ename,
+       d.loc
+FROM emp e
+INNER JOIN dept d
+ON e.deptno = d.deptno
+WHERE d.loc = 'NEW YORK';
+
+===============================================================
+258. Display employee names with salary and department name sorted by salary descending
+
+SELECT e.ename,
+       e.sal,
+       d.dname
+FROM emp e
+INNER JOIN dept d
+ON e.deptno = d.deptno
+ORDER BY e.sal DESC;
