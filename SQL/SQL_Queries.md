@@ -1866,3 +1866,70 @@ FROM emp e
 INNER JOIN dept d
 ON e.deptno = d.deptno
 ORDER BY e.sal DESC;
+
+===============================================================
+259. Find customers who placed more than 5 orders in the last 6 months
+
+SELECT custid,
+       COUNT(ordid) AS cnt
+FROM orders
+WHERE orddt >= DATEADD(MM,-6,GETDATE())
+GROUP BY custid
+HAVING COUNT(ordid) > 5;
+
+===============================================================
+260. Find southern states having more than 5 crore population
+
+SELECT state,
+       COUNT(*) AS cnt
+FROM persons
+WHERE state IN ('AP','TG','TN','KA','KL')
+GROUP BY state
+HAVING COUNT(*) > 5000000;
+
+===============================================================
+261. Display department-wise and within department job-wise total salary
+
+SELECT deptno,
+       job,
+       SUM(sal) AS totsal
+FROM emp
+GROUP BY deptno,
+         job
+ORDER BY deptno ASC;
+
+===============================================================
+262. Display year-wise and within year quarter-wise number of employees joined
+
+SELECT DATEPART(YY,hiredate) AS year,
+       DATEPART(QQ,hiredate) AS quarter,
+       COUNT(*) AS cnt
+FROM emp
+GROUP BY DATEPART(YY,hiredate),
+         DATEPART(QQ,hiredate)
+ORDER BY year ASC,
+         quarter ASC;
+
+===============================================================
+263. Display department-wise and job-wise average salary
+
+SELECT deptno,
+       job,
+       AVG(sal) AS avgsal
+FROM emp
+GROUP BY deptno,
+         job
+ORDER BY deptno,
+         job;
+
+===============================================================
+264. Display department-wise and job-wise employee count
+
+SELECT deptno,
+       job,
+       COUNT(*) AS cnt
+FROM emp
+GROUP BY deptno,
+         job
+ORDER BY deptno,
+         job;
