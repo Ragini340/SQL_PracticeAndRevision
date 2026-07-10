@@ -1933,3 +1933,63 @@ GROUP BY deptno,
          job
 ORDER BY deptno,
          job;
+
+===============================================================
+265. Display department-wise and within department job-wise maximum salary
+
+SELECT deptno,
+       job,
+       MAX(sal) AS maxsal
+FROM emp
+GROUP BY deptno,
+         job
+ORDER BY deptno,
+         job;
+
+===============================================================
+266. Display department-wise and within department job-wise minimum salary
+
+SELECT deptno,
+       job,
+       MIN(sal) AS minsal
+FROM emp
+GROUP BY deptno,
+         job
+ORDER BY deptno,
+         job;
+
+===============================================================
+267. Display department-wise total salary where total salary is greater than 10000
+
+SELECT deptno,
+       SUM(sal) AS totsal
+FROM emp
+GROUP BY deptno
+HAVING SUM(sal) > 10000;
+
+===============================================================
+268. Display job-wise average salary where average salary is greater than 3000
+
+SELECT job,
+       AVG(sal) AS avgsal
+FROM emp
+GROUP BY job
+HAVING AVG(sal) > 3000;
+
+===============================================================
+269. Display departments having more than 5 employees
+
+SELECT deptno,
+       COUNT(*) AS cnt
+FROM emp
+GROUP BY deptno
+HAVING COUNT(*) > 5;
+
+===============================================================
+270. Display department-wise employee count arranged in descending order
+
+SELECT deptno,
+       COUNT(*) AS cnt
+FROM emp
+GROUP BY deptno
+ORDER BY cnt DESC;
