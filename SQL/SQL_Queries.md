@@ -1993,3 +1993,73 @@ SELECT deptno,
 FROM emp
 GROUP BY deptno
 ORDER BY cnt DESC;
+
+===============================================================
+271. Display department-wise employee count with department names
+
+SELECT d.dname,
+       COUNT(e.empid) AS cnt
+FROM emp AS e
+INNER JOIN dept AS d
+ON e.deptno = d.deptno
+GROUP BY d.dname;
+
+===============================================================
+272. Display year-wise total sales amount
+
+SELECT DATEPART(YY, dateid) AS year,
+       SUM(amt) AS totalamount
+FROM sales
+GROUP BY DATEPART(YY, dateid);
+
+===============================================================
+273. Display category-wise total sales amount
+
+SELECT p.category,
+       SUM(s.amt) AS totalamount
+FROM sales AS s
+INNER JOIN products AS p
+ON s.prodid = p.prodid
+GROUP BY p.category;
+
+===============================================================
+274. Display country-wise total sales amount
+
+SELECT c.country,
+       SUM(s.amt) AS totalamount
+FROM sales AS s
+INNER JOIN customer AS c
+ON s.custid = c.cusid
+GROUP BY c.country;
+
+===============================================================
+275. Display year-wise, country-wise and category-wise total sales amount
+
+SELECT DATEPART(YY, s.dateid) AS year,
+       c.country,
+       p.category,
+       SUM(s.amt) AS totalamount
+FROM sales AS s
+INNER JOIN products AS p
+ON s.prodid = p.prodid
+INNER JOIN customer AS c
+ON s.custid = c.cusid
+GROUP BY DATEPART(YY, s.dateid),
+         c.country,
+         p.category
+ORDER BY year,
+         c.country,
+         p.category;
+
+===============================================================
+276. Display distinct jobs from departments 20 and 30 using UNION
+
+SELECT job
+FROM emp
+WHERE deptno = 20
+
+UNION
+
+SELECT job
+FROM emp
+WHERE deptno = 30;
