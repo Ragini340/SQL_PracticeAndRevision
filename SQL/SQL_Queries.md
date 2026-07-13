@@ -2063,3 +2063,75 @@ UNION
 SELECT job
 FROM emp
 WHERE deptno = 30;
+
+===============================================================
+277. Display all jobs from departments 20 and 30 including duplicates (UNION ALL)
+
+SELECT job
+FROM emp
+WHERE deptno = 20
+
+UNION ALL
+
+SELECT job
+FROM emp
+WHERE deptno = 30;
+
+===============================================================
+278. Display common jobs in departments 20 and 30 (INTERSECT)
+
+SELECT job
+FROM emp
+WHERE deptno = 20
+
+INTERSECT
+
+SELECT job
+FROM emp
+WHERE deptno = 30;
+
+===============================================================
+279. Display jobs available in department 20 but not in department 30 (EXCEPT)
+
+SELECT job
+FROM emp
+WHERE deptno = 20
+
+EXCEPT
+
+SELECT job
+FROM emp
+WHERE deptno = 30;
+
+===============================================================
+280. Display employee(s) earning maximum salary (Sub Query)
+
+SELECT *
+FROM emp
+WHERE sal =
+(
+    SELECT MAX(sal)
+    FROM emp
+);
+
+===============================================================
+281. Display employee(s) earning minimum salary (Sub Query)
+
+SELECT *
+FROM emp
+WHERE sal =
+(
+    SELECT MIN(sal)
+    FROM emp
+);
+
+===============================================================
+282. Display employees earning more than the average salary
+
+SELECT *
+FROM emp
+WHERE sal >
+(
+    SELECT AVG(sal)
+    FROM emp
+);
