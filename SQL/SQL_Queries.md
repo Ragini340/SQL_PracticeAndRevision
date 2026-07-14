@@ -2135,3 +2135,76 @@ WHERE sal >
     SELECT AVG(sal)
     FROM emp
 );
+
+===============================================================
+283. Display employee salary range using CASE statement
+
+SELECT ename,
+       sal,
+       CASE
+           WHEN sal > 3000 THEN 'HISAL'
+           WHEN sal < 3000 THEN 'LOSAL'
+           ELSE 'AVGSAL'
+       END AS salrange
+FROM emp;
+
+===============================================================
+284. Display employee job description using CASE statement
+
+SELECT ename,
+       CASE job
+           WHEN 'CLERK' THEN 'WORKER'
+           WHEN 'MANAGER' THEN 'BOSS'
+           WHEN 'PRESIDENT' THEN 'BIG BOSS'
+           ELSE 'EMPLOYEE'
+       END AS jobdescription
+FROM emp;
+
+===============================================================
+285. Display employee annual salary and salary grade
+
+SELECT ename,
+       sal * 12 AS annualsalary,
+       CASE
+           WHEN sal >= 5000 THEN 'GRADE A'
+           WHEN sal >= 3000 THEN 'GRADE B'
+           WHEN sal >= 1500 THEN 'GRADE C'
+           ELSE 'GRADE D'
+       END AS grade
+FROM emp;
+
+===============================================================
+286. Display employee bonus based on salary
+
+SELECT ename,
+       sal,
+       CASE
+           WHEN sal >= 5000 THEN sal * 0.20
+           WHEN sal >= 3000 THEN sal * 0.15
+           ELSE sal * 0.10
+       END AS bonus
+FROM emp;
+
+===============================================================
+287. Display employee experience category
+
+SELECT ename,
+       hiredate,
+       CASE
+           WHEN DATEDIFF(YEAR, hiredate, GETDATE()) >= 10 THEN 'SENIOR'
+           WHEN DATEDIFF(YEAR, hiredate, GETDATE()) >= 5 THEN 'MID LEVEL'
+           ELSE 'JUNIOR'
+       END AS experience
+FROM emp;
+
+===============================================================
+288. Display employee salary status
+
+SELECT ename,
+       sal,
+       CASE
+           WHEN sal IS NULL THEN 'NOT AVAILABLE'
+           WHEN sal >= 5000 THEN 'HIGH'
+           ELSE 'NORMAL'
+       END AS salarystatus
+FROM emp;
