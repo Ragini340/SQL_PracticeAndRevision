@@ -2208,3 +2208,81 @@ SELECT ename,
            ELSE 'NORMAL'
        END AS salarystatus
 FROM emp;
+
+===============================================================
+289. Display employee names in uppercase
+
+SELECT UPPER(ename) AS ename
+FROM emp;
+
+===============================================================
+290. Display employee names in lowercase
+
+SELECT LOWER(ename) AS ename
+FROM emp;
+
+===============================================================
+291. Display length of each employee name
+
+SELECT ename,
+       LEN(ename) AS namelength
+FROM emp;
+
+===============================================================
+292. Display first 3 characters of employee names
+
+SELECT ename,
+       LEFT(ename,3) AS first3chars
+FROM emp;
+
+===============================================================
+293. Display last 3 characters of employee names
+
+SELECT ename,
+       RIGHT(ename,3) AS last3chars
+FROM emp;
+
+===============================================================
+294. Display first name and last name from customer name
+
+SELECT cid,
+       SUBSTRING(cname,1,CHARINDEX(' ',cname)-1) AS fname,
+       SUBSTRING(cname,CHARINDEX(' ',cname)+1,LEN(cname)) AS lname
+FROM cust;
+
+===============================================================
+295. Display employees whose names are palindrome
+
+SELECT *
+FROM emp
+WHERE ename = REVERSE(ename);
+
+===============================================================
+296. Display employee names with masked salary
+
+SELECT ename,
+       REPLICATE('*',LEN(sal)) AS sal
+FROM emp;
+
+===============================================================
+297. Display masked account number
+
+SELECT REPLICATE('X',4) + RIGHT(accno,4) AS accountno
+FROM accounts;
+
+===============================================================
+298. Replace 'ELL' with 'ABC' in HELLO
+
+SELECT REPLACE('HELLO','ELL','ABC');
+
+===============================================================
+299. Remove all '@' characters from a string
+
+SELECT REPLACE('@@HE@@LL@O@@','@','');
+
+===============================================================
+300. Encrypt salary using TRANSLATE
+
+SELECT ename,
+       TRANSLATE(sal,'0123456789.','$bT*!&#@^%+') AS sal
+FROM emp;
