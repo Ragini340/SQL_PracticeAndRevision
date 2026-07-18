@@ -2286,3 +2286,51 @@ SELECT REPLACE('@@HE@@LL@O@@','@','');
 SELECT ename,
        TRANSLATE(sal,'0123456789.','$bT*!&#@^%+') AS sal
 FROM emp;
+
+===============================================================
+301. Display employee names after removing leading spaces
+
+SELECT LTRIM('     SACHIN') AS ename;
+
+===============================================================
+302. Display employee names after removing trailing spaces
+
+SELECT RTRIM('SACHIN     ') AS ename;
+
+===============================================================
+303. Display employee names after removing leading and trailing spaces
+
+SELECT TRIM('     SACHIN     ') AS ename;
+
+===============================================================
+304. Display employee names padded with '*' on the left to make length 10
+
+SELECT RIGHT(REPLICATE('*',10) + ename,10) AS ename
+FROM emp;
+
+===============================================================
+305. Display employee names padded with '*' on the right to make length 10
+
+SELECT LEFT(ename + REPLICATE('*',10),10) AS ename
+FROM emp;
+
+===============================================================
+306. Display employee names with first letter in uppercase and remaining letters in lowercase
+
+SELECT UPPER(LEFT(ename,1))
+       + LOWER(SUBSTRING(ename,2,LEN(ename))) AS ename
+FROM emp;
+
+===============================================================
+307. Display employee names along with the position of letter 'A'
+
+SELECT ename,
+       CHARINDEX('A',UPPER(ename)) AS position
+FROM emp;
+
+===============================================================
+308. Display employee names containing the letter 'A'
+
+SELECT *
+FROM emp
+WHERE CHARINDEX('A',UPPER(ename)) > 0;
