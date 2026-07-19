@@ -2334,3 +2334,124 @@ FROM emp;
 SELECT *
 FROM emp
 WHERE CHARINDEX('A',UPPER(ename)) > 0;
+
+===============================================================
+309. Declare an integer variable and print its value
+
+DECLARE @a INT;
+SET @a = 100;
+PRINT @a;
+
+===============================================================
+310. Declare multiple variables and assign values
+
+DECLARE @a INT,
+        @s VARCHAR(20),
+        @d DATE;
+
+SET @a = 100;
+SET @s = 'HELLO';
+SET @d = GETDATE();
+
+PRINT @a;
+PRINT @s;
+PRINT @d;
+
+===============================================================
+311. Add two numbers using variables
+
+DECLARE @a INT = 100,
+        @b INT = 200,
+        @c INT;
+
+SET @c = @a + @b;
+
+PRINT @c;
+
+===============================================================
+312. Display current day of the week
+
+DECLARE @d DATE;
+
+SET @d = GETDATE();
+
+PRINT DATENAME(DW,@d);
+
+===============================================================
+313. Split full name into First, Middle and Last Name
+
+DECLARE @n VARCHAR(60),
+        @f VARCHAR(20),
+        @m VARCHAR(20),
+        @l VARCHAR(20),
+        @fstspace INT;
+
+SET @n = 'Sachin Ramesh Tendulkar';
+
+SET @fstspace = CHARINDEX(' ',@n);
+SET @f = SUBSTRING(@n,1,@fstspace-1);
+SET @l = SUBSTRING(@n,CHARINDEX(' ',@n,@fstspace+1)+1,LEN(@n));
+SET @m = REPLACE(REPLACE(@n,@f,''),@l,'');
+
+PRINT 'First Name = ' + @f;
+PRINT 'Middle Name = ' + @m;
+PRINT 'Last Name = ' + @l;
+
+===============================================================
+314. Display employee name and salary using employee number
+
+DECLARE @eno INT,
+        @name VARCHAR(20),
+        @sal MONEY;
+
+SET @eno = 7788;
+
+SELECT @name = ename,
+       @sal = sal
+FROM emp
+WHERE empno = @eno;
+
+PRINT @name + ' ' + CAST(@sal AS VARCHAR);
+
+===============================================================
+315. Calculate employee experience in years
+
+DECLARE @eno INT,
+        @hire DATE,
+        @expr INT;
+
+SET @eno = 7788;
+
+SELECT @hire = hiredate
+FROM emp
+WHERE empno = @eno;
+
+SET @expr = DATEDIFF(YY,@hire,GETDATE());
+
+PRINT CAST(@expr AS VARCHAR) + ' YEARS';
+
+===============================================================
+316. Increment employee salary using IF...ELSE based on Job
+
+DECLARE @eno INT,
+        @job VARCHAR(10),
+        @pct INT;
+
+SET @eno = 7788;
+
+SELECT @job = job
+FROM emp
+WHERE empno = @eno;
+
+IF @job = 'CLERK'
+    SET @pct = 10;
+ELSE IF @job = 'SALESMAN'
+    SET @pct = 15;
+ELSE IF @job = 'MANAGER'
+    SET @pct = 20;
+ELSE
+    SET @pct = 5;
+
+UPDATE emp
+SET sal = sal + (sal * @pct / 100)
+WHERE empno = @eno;
