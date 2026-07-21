@@ -2455,3 +2455,56 @@ ELSE
 UPDATE emp
 SET sal = sal + (sal * @pct / 100)
 WHERE empno = @eno;
+
+===============================================================
+317. Display Employee Grade using CASE
+
+SELECT empno,
+       ename,
+       sal,
+       CASE
+           WHEN sal >= 5000 THEN 'A'
+           WHEN sal >= 3000 THEN 'B'
+           WHEN sal >= 1500 THEN 'C'
+           ELSE 'D'
+       END AS Grade
+FROM emp;
+
+===============================================================
+318. Display Job Description using Simple CASE
+
+SELECT ename,
+       job,
+       CASE job
+           WHEN 'CLERK' THEN 'WORKER'
+           WHEN 'MANAGER' THEN 'BOSS'
+           WHEN 'PRESIDENT' THEN 'BIG BOSS'
+           ELSE 'EMPLOYEE'
+       END AS JobDescription
+FROM emp;
+
+===============================================================
+319. Display Salary Range using Searched CASE
+
+SELECT ename,
+       sal,
+       CASE
+           WHEN sal > 3000 THEN 'HISAL'
+           WHEN sal < 3000 THEN 'LOSAL'
+           ELSE 'AVGSAL'
+       END AS SalaryRange
+FROM emp;
+
+===============================================================
+320. Display Student Result using CASE
+
+SELECT sno,
+       s1 + s2 + s3 AS Total,
+       (s1 + s2 + s3) / 3 AS AvgMarks,
+       CASE
+           WHEN s1 >= 35
+            AND s2 >= 35
+            AND s3 >= 35 THEN 'PASS'
+           ELSE 'FAIL'
+       END AS Result
+FROM student;
