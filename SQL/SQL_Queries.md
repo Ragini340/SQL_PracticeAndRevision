@@ -2508,3 +2508,65 @@ SELECT sno,
            ELSE 'FAIL'
        END AS Result
 FROM student;
+
+===============================================================
+321. Display Student Grade using CASE
+
+SELECT sno,
+       s1 + s2 + s3 AS Total,
+       (s1 + s2 + s3) / 3 AS AvgMarks,
+       CASE
+           WHEN (s1 + s2 + s3) / 3 >= 75 THEN 'DISTINCTION'
+           WHEN (s1 + s2 + s3) / 3 >= 60 THEN 'FIRST CLASS'
+           WHEN (s1 + s2 + s3) / 3 >= 35 THEN 'SECOND CLASS'
+           ELSE 'FAIL'
+       END AS Grade
+FROM student;
+
+===============================================================
+322. Display Department-wise Number of Employees
+
+SELECT deptno,
+       COUNT(*) AS TotalEmployees
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+323. Display Department-wise Maximum Salary
+
+SELECT deptno,
+       MAX(sal) AS MaxSalary
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+324. Display Department-wise Minimum Salary
+
+SELECT deptno,
+       MIN(sal) AS MinSalary
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+325. Display Department-wise Total Salary
+
+SELECT deptno,
+       SUM(sal) AS TotalSalary
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+326. Display Department-wise Average Salary
+
+SELECT deptno,
+       AVG(sal) AS AvgSalary
+FROM emp
+GROUP BY deptno;
+
+===============================================================
+327. Display Job-wise Number of Employees
+
+SELECT job,
+       COUNT(*) AS TotalEmployees
+FROM emp
+GROUP BY job;
