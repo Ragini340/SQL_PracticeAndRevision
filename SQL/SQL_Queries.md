@@ -2570,3 +2570,60 @@ SELECT job,
        COUNT(*) AS TotalEmployees
 FROM emp
 GROUP BY job;
+
+===============================================================
+328. Display Job-wise Maximum Salary
+
+SELECT job,
+       MAX(sal) AS MaxSalary
+FROM emp
+GROUP BY job;
+
+===============================================================
+329. Display Job-wise Minimum Salary
+
+SELECT job,
+       MIN(sal) AS MinSalary
+FROM emp
+GROUP BY job;
+
+===============================================================
+330. Display Job-wise Total Salary
+
+SELECT job,
+       SUM(sal) AS TotalSalary
+FROM emp
+GROUP BY job;
+
+===============================================================
+331. Display Job-wise Average Salary
+
+SELECT job,
+       AVG(sal) AS AvgSalary
+FROM emp
+GROUP BY job;
+
+===============================================================
+332. Display Number of Employees Joined in Each Year
+
+SELECT DATEPART(YEAR, hiredate) AS JoinYear,
+       COUNT(*) AS TotalEmployees
+FROM emp
+GROUP BY DATEPART(YEAR, hiredate);
+
+===============================================================
+333. Display Number of Employees Joined in Each Month
+
+SELECT DATEPART(MONTH, hiredate) AS JoinMonth,
+       COUNT(*) AS TotalEmployees
+FROM emp
+GROUP BY DATEPART(MONTH, hiredate);
+
+===============================================================
+334. Display Department-wise and Job-wise Employee Count
+
+SELECT deptno,
+       job,
+       COUNT(*) AS TotalEmployees
+FROM emp
+GROUP BY deptno, job;
