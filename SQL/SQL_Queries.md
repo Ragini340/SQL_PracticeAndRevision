@@ -2627,3 +2627,66 @@ SELECT deptno,
        COUNT(*) AS TotalEmployees
 FROM emp
 GROUP BY deptno, job;
+
+===============================================================
+335. Display Departments Having More Than 3 Employees
+
+SELECT deptno,
+       COUNT(*) AS TotalEmployees
+FROM emp
+GROUP BY deptno
+HAVING COUNT(*) > 3;
+
+===============================================================
+336. Display Jobs Having More Than 2 Employees
+
+SELECT job,
+       COUNT(*) AS TotalEmployees
+FROM emp
+GROUP BY job
+HAVING COUNT(*) > 2;
+
+===============================================================
+337. Display Departments Whose Maximum Salary is Greater Than 3000
+
+SELECT deptno,
+       MAX(sal) AS MaxSalary
+FROM emp
+GROUP BY deptno
+HAVING MAX(sal) > 3000;
+
+===============================================================
+338. Display Departments Whose Average Salary is Greater Than 2000
+
+SELECT deptno,
+       AVG(sal) AS AvgSalary
+FROM emp
+GROUP BY deptno
+HAVING AVG(sal) > 2000;
+
+===============================================================
+339. Display Jobs Whose Total Salary is Greater Than 5000
+
+SELECT job,
+       SUM(sal) AS TotalSalary
+FROM emp
+GROUP BY job
+HAVING SUM(sal) > 5000;
+
+===============================================================
+340. Display Department-wise Employee Count in Descending Order
+
+SELECT deptno,
+       COUNT(*) AS TotalEmployees
+FROM emp
+GROUP BY deptno
+ORDER BY COUNT(*) DESC;
+
+===============================================================
+341. Display Job-wise Average Salary in Descending Order
+
+SELECT job,
+       AVG(sal) AS AvgSalary
+FROM emp
+GROUP BY job
+ORDER BY AVG(sal) DESC;
